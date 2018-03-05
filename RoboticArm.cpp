@@ -4,7 +4,16 @@
 #include "stdafx.h"
 #include <iostream>
 #include <GL/freeglut.h>
-static int shoulder = 0, elbow = 0;
+#include "stdafx.h"
+
+
+int X = 0; //shoulder's angle
+int Y = 0; //Elbow's angle
+int A = 0; //finger1's angle
+int B = 0; //finger2's angle
+int C = 0; //finger3's angle
+int D = 0; //finger4's angle
+
 
 int windowWidth = 1024;
 int windowHeight = 768;
@@ -126,66 +135,133 @@ void display(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	gluLookAt(eye[0], eye[1], eye[2], center[0], center[1], center[2], up[0], up[1], up[2]);
-	glColor3f(0, 1, 0);
-	glPushMatrix(); //push Identity
 
-	//draw shoulder
-	glTranslatef(0, 0, 0);
-	glRotatef(0,0, 0, 1);
-	glPushMatrix(); //push shoulder
-	glScalef(1.0, 0.1, 0.1);
+	glColor3f(250, 0, 0);
 
-	glutWireCube(0.25);
+
+	glPushMatrix(); //push identity 
+
+					//draw shoulder
+
+	glTranslatef(0.0, 0.0, 0.0);
+	glRotatef(X, 0.0, 0.0, 1.0);
+	//glTranslatef(1.0, 0.0, 0.0);
+	glPushMatrix();
+	glScalef(1.0, 0.12, 0.1);
+	glutWireCube(.253);
 	glPopMatrix();
 
 	//draw Elbow
-	glTranslatef(0.257, 0, 0);
-	glRotatef(0, 0, 0, 1);
-	glPushMatrix(); //push shoulder and elbow
-	glScalef(1.0, 0.1, 0.1);
+	glTranslatef(0.257, 0.0, 0.0);
+	glRotatef(Y, 0.0, 0.0, 1.0);
+	//glTranslatef(1.0, 0.0, 0.0);
+	glPushMatrix();
+	glScalef(1.0, 0.12, 0.1);
+	glutWireCube(.253);
+	glPopMatrix();
 
-	glutWireCube(0.25);
-
-	glPopMatrix(); //pop shoulder
-
-	
 	//draw finger1
-	glTranslatef(0.15, 0.01, 0);
-	glRotatef(0, 0, 0, 1);
+	glTranslatef(0.15, 0.009, 0.0);
+	glRotatef(A, 0.0, 0.0, 1.0);
+	//glTranslatef(1.0, 0.0, 0.0);
 	glPushMatrix();
 	glScalef(0.23, 0.05, 0.1);
 	glutWireCube(0.14);
-	glPopMatrix(); 
+	glPopMatrix();
+
 
 	//draw finger2
-	glTranslatef(0, -0.01, 0);
-	glRotatef(0, 0, 0, 1);
+	glTranslatef(0.0, -0.01, 0.0);
+	glRotatef(B, 0.0, 0.0, 1.0);
+	//glTranslatef(1.0, 0.0, 0.0);
 	glPushMatrix();
 	glScalef(0.23, 0.05, 0.1);
 	glutWireCube(0.14);
 	glPopMatrix();
 
 	//draw finger3
-	glTranslatef(0, -0.01, 0);
-	glRotatef(0, 0, 0, 1);
+	glTranslatef(0.0, -0.01, 0.0);
+	glRotatef(C, 0.0, 0.0, 1.0);
+	//glTranslatef(1.0, 0.0, 0.0);
 	glPushMatrix();
 	glScalef(0.23, 0.05, 0.1);
 	glutWireCube(0.14);
 	glPopMatrix();
 
+
+
 	//draw finger4
-	glTranslatef(0, -0.01, 0);
-	glRotatef(0, 0, 0, 1);
+	glTranslatef(0.0, -0.01, 0.0);
+	glRotatef(D, 0.0, 0.0, 1.0);
+	//glTranslatef(1.0, 0.0, 0.0);
 	glPushMatrix();
 	glScalef(0.23, 0.05, 0.1);
 	glutWireCube(0.14);
 	glPopMatrix();
+	glutSwapBuffers();
+
 
 
 	glFlush();
-	glutSwapBuffers();
 }
-
+void keyboard(unsigned char key, int x, int y)
+{
+	switch (key) {
+	case 's': //press s to rotate shoulder up
+		X = (X + 5) % 360;
+		glutPostRedisplay();
+		break;
+	case 'S': //press s to rotate shoulder down
+		X = (X - 5) % 360;
+		glutPostRedisplay();
+		break;
+	case '!': //press e to rotate Elbow up
+		Y = (Y + 5) % 360;
+		glutPostRedisplay();
+		break;
+	case '1': //press E to rotate Elbow down
+		Y = (Y - 5) % 360;
+		glutPostRedisplay();
+		break;
+	case 'a': //press a to rotate finger1 up
+		A = (A + 5) % 360;
+		glutPostRedisplay();
+		break;
+	case 'A': //press A to rotate finger1 down
+		A = (A - 5) % 360;
+		glutPostRedisplay();
+		break;
+	case 'b': //press b to rotate finger2 up
+		B = (B + 5) % 360;
+		glutPostRedisplay();
+		break;
+	case 'B': //press B to rotate finger2 down
+		B = (B - 5) % 360;
+		glutPostRedisplay();
+		break;
+	case 'c': //press c to rotate finger3 up
+		C = (C + 5) % 360;
+		glutPostRedisplay();
+		break;
+	case 'C': //press C to rotate finger3 down
+		C = (C - 5) % 360;
+		glutPostRedisplay();
+		break;
+	case 'd': //press d to rotate finger3 up
+		D = (D + 5) % 360;
+		glutPostRedisplay();
+		break;
+	case 'D': //press D to rotate finger3 down
+		D = (D - 5) % 360;
+		glutPostRedisplay();
+		break;
+	case 27:
+		exit(0);
+		break;
+	default:
+		break;
+	}
+}
 void specialKeys(int key, int x, int y)
 {
 	switch (key)
@@ -212,9 +288,10 @@ int main(void)
 
 	glutDisplayFunc(display);
 	glutSpecialFunc(specialKeys);
-
+	glutKeyboardFunc(keyboard);
 	glutMainLoop();
 	return 0;
 
 }
+
 
